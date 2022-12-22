@@ -1,0 +1,25 @@
+{
+  "name": "geojsontesting",
+  "version": "1.0.0",
+  "description": "A Repository of Tests to understand GeoJSON for another upcomming project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RevRocky/GeoJSONTesting.git"
+  },
+  "author": "",
+  "license": "GPL-2.0-only",
+  "bugs": {
+    "url": "https://github.com/RevRocky/GeoJSONTesting/issues"
+  },
+  "homepage": "https://github.com/RevRocky/GeoJSONTesting#readme",
+  "dependencies": {
+    "@turf/helpers": "^6.5.0",
+    "leaflet": "^1.9.3",
+    "turf": "^3.0.14",
+    "yargs": "^17.6.2"
+  }
+}
