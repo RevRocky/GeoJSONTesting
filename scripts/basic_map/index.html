@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+        crossorigin=""/>
+    
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+        crossorigin=""></script>  
+        
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="map" style="height: 700px; width: 700px;"></div>
+        <script type="text/javascript">            
+
+            const TORONTO_COORDINATES = [43.6529, -79.3849];
+            const DEFAULT_ZOOM = 12;
+            const info = L.control();
+            let geoJsonLayer;
+
+
+            const COLOURS = {
+                "Residential (Mid-to-High Density)": "#ffa500",  // Dark Yellow
+                "Residential (Low Density)": "#fff68f", // Light Yellow
+                "Residential(General)": "#fff00", // Yellow
+                "Mixed Use": "#0000ff",  // Blue
+                "Open Space": "#008000", // Green
+                "Utility and Transportation": "#c0d6e4",  // Grey
+                "Commercial": "#cc0000",   // Red
+                "Employment": "#ff1493",  // Pink
+                "Institutional": "#ffffff"  // White
+            };
+
+            // Defining some functions to handle basic interactiviy
+
+            info.onAdd = function(map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            }
+
+            info.update = function (props) {
+                this._div.innerHTML = `<h4>Simple Zoning Type</h4> <br />${props ? `<b>${props.type} </b>` : `<i>Hover over the map to highlight a zone</i>`}`;
+            };
+
+            function highlightFeature(e) {
+                let layer = e.target;
+
+                layer.setStyle({
+                    weight: 5,
+                    dashArray: '',
+                    fillOpacity: 0.9
+                });
+
+                layer.bringToFront(e);
+                info.update(layer.feature.properties);
+            }
+
+            function resetHighlight(e) {
+                geoJsonLayer.resetStyle(e.target)
+                info.update();
+            }
+
+ 
+
+            
+            function onEachFeature(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight
+                });
+            }
+
+            axios.get('http://localhost:8000/data/SimpleZonesV1.geojson')
+                .then((response) => {
+                    const simpleZones = response.data;
+
+                    let map = L.map('map').setView(TORONTO_COORDINATES, DEFAULT_ZOOM);
+
+                    // Create our Map
+
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
+
+                    // Add our polygons
+
+                    geoJsonLayer = L.geoJSON(simpleZones, {
+                        onEachFeature: onEachFeature,
+                        style: function(feature) 
+                        {return {color: COLOURS[feature.properties.type]}}
+                    }).addTo(map);
+
+                    info.addTo(map);
+
+                    // Make pretty
+                })
+                .catch((err) => console.log(err));
+
+        </script>
+    </body>
+</html> 
