@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/RevRocky/GeoJSONTesting#readme",
   "dependencies": {
+    "@turf/boolean-contains": "^6.5.0",
     "@turf/helpers": "^6.5.0",
+    "@turf/turf": "^6.5.0",
     "leaflet": "^1.9.3",
     "turf": "^3.0.14",
     "yargs": "^17.6.2"

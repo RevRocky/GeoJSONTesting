@@ -7,11 +7,36 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Simplify Zones",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/scripts/smoosh_together/main.js"
+        },     
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Augment Neighbourhood Info",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/scripts/augment_neighbourhood_data/augment_neighbourhood_data.js"
+        },        
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Filter Geography (Toronto)",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "args": [
+                "-s", "${workspaceFolder}/data/SimpleZonesV1.geojson",
+                "-f", "${workspaceFolder}/data/TorontoBoundary.geojson",
+                "-o", "${workspaceFolder}/data/TorontoCensusTracts.geojson",
+
+            ],
+            "program": "${workspaceFolder}/scripts/filter_geography/filter_geography.js"
         }
+    
     ]
 }
