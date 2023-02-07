@@ -123,6 +123,14 @@ function main() {
 
         console.log(`\tAssigned to zone: ${highScore.zone}`);
         console.log(`\tScore ${highScore.score}`);
+
+        // Assign each of these zones to a neighbourhood based on the nearest zoned area
+        for (let property in nearestAreas[0].properties) {
+            if (!unzonedArea.properties[property]) {
+                unzonedArea.properties[property] = nearestAreas[0].properties[property];
+            }
+        }
+
     }
 
     const newlyZonedAreas = turf.featureCollection(unzonedAreas);

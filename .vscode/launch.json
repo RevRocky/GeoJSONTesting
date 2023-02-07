@@ -21,7 +21,25 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/scripts/augment_neighbourhood_data/augment_neighbourhood_data.js"
-        },        
+        },  
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Zone the Hoods",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/scripts/zone_the_neighbourhoods/zone_the_neighbourhoods_1.js"
+        },    
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Zone the Hoods 2",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/scripts/zone_the_neighbourhoods/zone_the_neighbourhoods_2.js"
+        },          
         {
             "type": "node",
             "request": "launch",

@@ -153,7 +153,7 @@ function simplifyZones() {
 
     // Recast to a Feature Collection (this probably could have been done above...)si
 
-    simpleZones = turf.featureCollection(featureArray);
+    let simpleZones = turf.featureCollection(featureArray);
     fs.writeFileSync(SIMPLE_ZONES_FILE, JSON.stringify(simpleZones));
 
     return simpleZones;
